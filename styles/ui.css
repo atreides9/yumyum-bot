@@ -1,0 +1,119 @@
+/* === Label === */
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+/* === Radio === */
+.radio-group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.radio-item {
+  aspect-ratio: 1 / 1;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 9999px;
+  border: 1px solid #3b82f6;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.radio-item:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* === Card === */
+.card {
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  color: black;
+}
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 1.5rem;
+}
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.card-description {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.card-content {
+  padding: 1.5rem;
+  padding-top: 0;
+}
+.card-footer {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  padding-top: 0;
+}
+
+/* === Toggle === */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+}
+.toggle[data-state="on"] {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+.toggle-outline {
+  border: 1px solid #d1d5db;
+}
+.toggle-sm {
+  height: 2.25rem;
+  padding: 0.5rem 0.625rem;
+}
+.toggle-lg {
+  height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+}
+
+/* === Switch === */
+.switch {
+  display: inline-flex;
+  height: 1.5rem;
+  width: 2.75rem;
+  border-radius: 9999px;
+  background-color: #d1d5db;
+  align-items: center;
+  transition: background-color 0.2s;
+  padding: 0.125rem;
+  cursor: pointer;
+}
+.switch-thumb {
+  display: block;
+  height: 1.25rem;
+  width: 1.25rem;
+  border-radius: 9999px;
+  background-color: white;
+  transform: translateX(0);
+  transition: transform 0.2s;
+}
+.switch[data-state="checked"] {
+  background-color: #3b82f6;
+}
+.switch[data-state="checked"] .switch-thumb {
+  transform: translateX(1.25rem);
+}
