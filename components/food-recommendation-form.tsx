@@ -231,251 +231,283 @@ export function FoodRecommendationForm() {
       {/* 배경 일러스트 */}
       <FoodIllustrations accentColor={accentColor} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
-        <header className="mb-8 text-center relative">
-          <h1 className="text-4xl font-bold mb-2" style={{ color: accentColor }}>
+      {/* 헤더 섹션 */}
+      <header className="relative z-10 pt-8 pb-4">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-5xl font-bold mb-3" style={{ color: accentColor }}>
             냠냠봇
           </h1>
-          <p className="text-lg font-medium text-[#994D25]">선택이 힘든 당신을 위한 오늘의 맛있는 선택</p>
+          <p className="text-xl font-medium text-[#994D25] mb-2">선택이 힘든 당신을 위한 오늘의 맛있는 선택</p>
           {moodMessage && (
-            <p className="mt-2 text-sm italic" style={{ color: accentColor }}>
+            <p className="text-base italic" style={{ color: accentColor }}>
               {moodMessage}
             </p>
           )}
-        </header>
+        </div>
+      </header>
 
-        <div className="max-w-2xl mx-auto">
-          <Card className="shadow-lg bg-white/30 backdrop-blur-md border-white/20">
-            <CardHeader className="rounded-t-lg text-center text-white" style={{ backgroundColor: `${accentColor}CC` }}>
-              <CardTitle>오늘의 음식 추천받기</CardTitle>
-              <CardDescription className="text-white/80">맛있는 음식을 추천해 드릴게요</CardDescription>
+      {/* 메인 컨텐츠 섹션 */}
+      <main className="relative z-10 px-4 pb-8">
+        <div className="container mx-auto max-w-4xl">
+          <Card className="shadow-2xl bg-white/90 backdrop-blur-lg border-white/30">
+            <CardHeader className="text-center text-white py-8" style={{ backgroundColor: `${accentColor}DD` }}>
+              <CardTitle className="text-2xl font-bold">오늘의 음식 추천받기</CardTitle>
+              <CardDescription className="text-white/90 text-lg">맛있는 음식을 추천해 드릴게요</CardDescription>
             </CardHeader>
-            <CardContent className="pt-6">
+            
+            <CardContent className="p-8">
               {error && (
-                <div className="mb-4 p-3 bg-red-50/80 backdrop-blur-sm border border-red-200 rounded-md text-red-800">
-                  <p className="text-sm">{error}</p>
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                  <p className="text-sm font-medium">{error}</p>
                 </div>
               )}
 
               <form onSubmit={handleSubmit}>
-                <div className="space-y-8">
-                  <div className="space-y-2">
-                    <Label htmlFor="mood" className="text-lg font-medium" style={{ color: accentColor }}>
-                      오늘의 무드
-                    </Label>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      {moodOptions.map((option) => (
-                        <div
-                          key={option.value}
-                          className={`relative rounded-xl border-2 p-3 cursor-pointer transition-all hover:shadow-md ${
-                            mood === option.value
-                              ? "border-current bg-opacity-10"
-                              : "border-white/40 hover:border-white/60"
-                          } bg-white/40 backdrop-blur-sm`}
-                          style={{
-                            borderColor: mood === option.value ? accentColor : undefined,
-                            backgroundColor: mood === option.value ? `${accentColor}20` : undefined,
-                          }}
-                          onClick={() => setMood(option.value)}
-                        >
-                          <div className="flex flex-col items-center justify-center h-14">
-                            <div className="mb-2">{getMoodIcon(option.value)}</div>
-                            <span className="text-center text-sm font-medium">{option.label}</span>
-                          </div>
-                        </div>
-                      ))}
+                <div className="space-y-10">
+                  
+                  {/* 기본 정보 섹션 */}
+                  <section className="space-y-8">
+                    <div className="text-center">
+                      <h2 className="text-2xl font-semibold mb-2" style={{ color: accentColor }}>기본 정보</h2>
+                      <p className="text-gray-600">현재 상황을 알려주세요</p>
                     </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Label className="text-lg font-medium" style={{ color: accentColor }}>
-                        오늘의 날씨
+                    {/* 오늘의 무드 */}
+                    <div className="space-y-4">
+                      <Label className="text-xl font-semibold block text-center" style={{ color: accentColor }}>
+                        오늘의 무드는?
                       </Label>
-                    </div>
-                    <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-                      {weatherOptions.map((option) => (
-                        <div
-                          key={option.value}
-                          className={`relative rounded-xl border-2 p-3 cursor-pointer transition-all hover:shadow-md ${
-                            weather === option.value
-                              ? "border-current bg-opacity-10"
-                              : "border-white/40 hover:border-white/60"
-                          } bg-white/40 backdrop-blur-sm`}
-                          style={{
-                            borderColor: weather === option.value ? accentColor : undefined,
-                            backgroundColor: weather === option.value ? `${accentColor}20` : undefined,
-                          }}
-                          onClick={() => setWeather(option.value)}
-                        >
-                          <div className="flex flex-col items-center justify-center h-14">
-                            <div className="mb-2">{getWeatherIcon(option.value)}</div>
-                            <span className="text-center text-sm font-medium">{option.label}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Label className="text-lg font-medium" style={{ color: accentColor }}>
-                        누구와 함께
-                      </Label>
-                    </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      {withWhomOptions.map((option) => (
-                        <div
-                          key={option.value}
-                          className={`relative rounded-xl border-2 p-3 cursor-pointer transition-all hover:shadow-md ${
-                            withWhom === option.value
-                              ? "border-current bg-opacity-10"
-                              : "border-white/40 hover:border-white/60"
-                          } bg-white/40 backdrop-blur-sm`}
-                          style={{
-                            borderColor: withWhom === option.value ? accentColor : undefined,
-                            backgroundColor: withWhom === option.value ? `${accentColor}20` : undefined,
-                          }}
-                          onClick={() => setWithWhom(option.value)}
-                        >
-                          <div className="flex flex-col items-center justify-center h-14">
-                            <div className="mb-2">{getWithWhomIcon(option.value)}</div>
-                            <span className="text-center text-sm font-medium">{option.label}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* 식이 제한 및 선호도 - 접을 수 있게 변경 */}
-                  <Collapsible
-                    open={isDietaryOpen}
-                    onOpenChange={setIsDietaryOpen}
-                    className="border border-white/40 rounded-xl overflow-hidden bg-white/40 backdrop-blur-sm"
-                  >
-                    <CollapsibleTrigger
-                      className="flex w-full items-center justify-between p-4 font-medium"
-                      style={{ color: accentColor }}
-                    >
-                      <span className="text-lg">식이 제한 및 선호도</span>
-                      {isDietaryOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="p-4 pt-0 border-t border-white/40">
-                      <p className="text-xs text-gray-600 mb-3 pt-0">*해당 정보를 고려하여 음식을 추천해 드립니다</p>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="flex items-center space-x-3">
-                          <Checkbox
-                            id="vegetarian"
-                            className="h-5 w-5"
-                            checked={dietaryPreferences.includes("vegetarian")}
-                            onCheckedChange={() => handleDietaryPreferenceChange("vegetarian")}
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        {moodOptions.map((option) => (
+                          <div
+                            key={option.value}
+                            className={`relative rounded-2xl border-3 p-4 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                              mood === option.value
+                                ? "border-current shadow-lg scale-105"
+                                : "border-gray-200 hover:border-gray-300"
+                            } bg-white`}
                             style={{
-                              borderColor: dietaryPreferences.includes("vegetarian") ? accentColor : undefined,
-                              backgroundColor: dietaryPreferences.includes("vegetarian") ? accentColor : undefined,
+                              borderColor: mood === option.value ? accentColor : undefined,
+                              backgroundColor: mood === option.value ? `${accentColor}15` : undefined,
                             }}
-                          />
-                          <Label htmlFor="vegetarian" className="text-base">
-                            채식
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <Checkbox
-                            id="vegan"
-                            className="h-5 w-5"
-                            checked={dietaryPreferences.includes("vegan")}
-                            onCheckedChange={() => handleDietaryPreferenceChange("vegan")}
-                            style={{
-                              borderColor: dietaryPreferences.includes("vegan") ? accentColor : undefined,
-                              backgroundColor: dietaryPreferences.includes("vegan") ? accentColor : undefined,
-                            }}
-                          />
-                          <Label htmlFor="vegan" className="text-base">
-                            비건
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <Checkbox
-                            id="halal"
-                            className="h-5 w-5"
-                            checked={dietaryPreferences.includes("halal")}
-                            onCheckedChange={() => handleDietaryPreferenceChange("halal")}
-                            style={{
-                              borderColor: dietaryPreferences.includes("halal") ? accentColor : undefined,
-                              backgroundColor: dietaryPreferences.includes("halal") ? accentColor : undefined,
-                            }}
-                          />
-                          <Label htmlFor="halal" className="text-base">
-                            할랄
-                          </Label>
-                        </div>
-                        <div className="flex items-center space-x-3">
-                          <Checkbox
-                            id="diet"
-                            className="h-5 w-5"
-                            checked={dietaryPreferences.includes("diet")}
-                            onCheckedChange={() => handleDietaryPreferenceChange("diet")}
-                            style={{
-                              borderColor: dietaryPreferences.includes("diet") ? accentColor : undefined,
-                              backgroundColor: dietaryPreferences.includes("diet") ? accentColor : undefined,
-                            }}
-                          />
-                          <Label htmlFor="diet" className="text-base">
-                            다이어트 중
-                          </Label>
-                        </div>
-                      </div>
-                    </CollapsibleContent>
-                  </Collapsible>
-
-                  {/* 알레르기 - 접을 수 있게 변경 */}
-                  <Collapsible
-                    open={isAllergiesOpen}
-                    onOpenChange={setIsAllergiesOpen}
-                    className="border border-white/40 rounded-xl overflow-hidden bg-white/40 backdrop-blur-sm"
-                  >
-                    <CollapsibleTrigger
-                      className="flex w-full items-center justify-between p-4 font-medium"
-                      style={{ color: accentColor }}
-                    >
-                      <span className="flex items-center gap-2 text-lg">
-                        <AlertTriangle className="h-5 w-5 text-amber-500" />
-                        알레르기
-                      </span>
-                      {isAllergiesOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="p-4 pt-0 border-t border-white/40">
-                      <p className="text-xs text-gray-600 mb-3 pt-0">*알레르기가 있는 음식은 추천에서 제외됩니다</p>
-                      <div className="grid grid-cols-2 gap-3">
-                        {allergyOptions.map((option) => (
-                          <div key={option.value} className="flex items-center space-x-3">
-                            <Checkbox
-                              id={option.value}
-                              className="h-5 w-5"
-                              checked={allergies.includes(option.value)}
-                              onCheckedChange={() => handleAllergyChange(option.value)}
-                              style={{
-                                borderColor: allergies.includes(option.value) ? accentColor : undefined,
-                                backgroundColor: allergies.includes(option.value) ? accentColor : undefined,
-                              }}
-                            />
-                            <Label htmlFor={option.value} className="text-base">
-                              {option.label}
-                            </Label>
+                            onClick={() => setMood(option.value)}
+                          >
+                            <div className="flex flex-col items-center justify-center h-20">
+                              <div className="mb-3">{getMoodIcon(option.value)}</div>
+                              <span className="text-center text-sm font-semibold">{option.label}</span>
+                            </div>
                           </div>
                         ))}
                       </div>
-                    </CollapsibleContent>
-                  </Collapsible>
+                    </div>
+
+                    {/* 오늘의 날씨 */}
+                    <div className="space-y-4">
+                      <Label className="text-xl font-semibold block text-center" style={{ color: accentColor }}>
+                        오늘의 날씨는?
+                      </Label>
+                      <div className="grid grid-cols-3 lg:grid-cols-6 gap-4 max-w-3xl mx-auto">
+                        {weatherOptions.map((option) => (
+                          <div
+                            key={option.value}
+                            className={`relative rounded-2xl border-3 p-4 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                              weather === option.value
+                                ? "border-current shadow-lg scale-105"
+                                : "border-gray-200 hover:border-gray-300"
+                            } bg-white`}
+                            style={{
+                              borderColor: weather === option.value ? accentColor : undefined,
+                              backgroundColor: weather === option.value ? `${accentColor}15` : undefined,
+                            }}
+                            onClick={() => setWeather(option.value)}
+                          >
+                            <div className="flex flex-col items-center justify-center h-20">
+                              <div className="mb-3">{getWeatherIcon(option.value)}</div>
+                              <span className="text-center text-sm font-semibold">{option.label}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 누구와 함께 */}
+                    <div className="space-y-4">
+                      <Label className="text-xl font-semibold block text-center" style={{ color: accentColor }}>
+                        누구와 함께하시나요?
+                      </Label>
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                        {withWhomOptions.map((option) => (
+                          <div
+                            key={option.value}
+                            className={`relative rounded-2xl border-3 p-4 cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-lg ${
+                              withWhom === option.value
+                                ? "border-current shadow-lg scale-105"
+                                : "border-gray-200 hover:border-gray-300"
+                            } bg-white`}
+                            style={{
+                              borderColor: withWhom === option.value ? accentColor : undefined,
+                              backgroundColor: withWhom === option.value ? `${accentColor}15` : undefined,
+                            }}
+                            onClick={() => setWithWhom(option.value)}
+                          >
+                            <div className="flex flex-col items-center justify-center h-20">
+                              <div className="mb-3">{getWithWhomIcon(option.value)}</div>
+                              <span className="text-center text-sm font-semibold">{option.label}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </section>
+
+                  {/* 구분선 */}
+                  <div className="flex items-center justify-center">
+                    <div className="h-px bg-gray-300 flex-1"></div>
+                    <div className="px-4 text-gray-500 font-medium">추가 옵션</div>
+                    <div className="h-px bg-gray-300 flex-1"></div>
+                  </div>
+
+                  {/* 추가 정보 섹션 */}
+                  <section className="space-y-6">
+                    <div className="text-center">
+                      <h2 className="text-2xl font-semibold mb-2" style={{ color: accentColor }}>추가 정보</h2>
+                      <p className="text-gray-600">선택사항입니다 (더 정확한 추천을 위해)</p>
+                    </div>
+
+                    {/* 식이 제한 및 선호도 */}
+                    <Collapsible
+                      open={isDietaryOpen}
+                      onOpenChange={setIsDietaryOpen}
+                      className="border-2 border-gray-200 rounded-2xl overflow-hidden bg-white shadow-md"
+                    >
+                      <CollapsibleTrigger
+                        className="flex w-full items-center justify-between p-6 font-semibold hover:bg-gray-50 transition-colors"
+                        style={{ color: accentColor }}
+                      >
+                        <span className="text-lg">🥗 식이 제한 및 선호도</span>
+                        {isDietaryOpen ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="border-t-2 border-gray-100">
+                        <div className="p-6">
+                          <p className="text-sm text-gray-600 mb-4">해당 정보를 고려하여 음식을 추천해 드립니다</p>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50">
+                              <Checkbox
+                                id="vegetarian"
+                                className="h-5 w-5"
+                                checked={dietaryPreferences.includes("vegetarian")}
+                                onCheckedChange={() => handleDietaryPreferenceChange("vegetarian")}
+                                style={{
+                                  borderColor: dietaryPreferences.includes("vegetarian") ? accentColor : undefined,
+                                  backgroundColor: dietaryPreferences.includes("vegetarian") ? accentColor : undefined,
+                                }}
+                              />
+                              <Label htmlFor="vegetarian" className="text-base font-medium cursor-pointer">
+                                채식주의
+                              </Label>
+                            </div>
+                            <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50">
+                              <Checkbox
+                                id="vegan"
+                                className="h-5 w-5"
+                                checked={dietaryPreferences.includes("vegan")}
+                                onCheckedChange={() => handleDietaryPreferenceChange("vegan")}
+                                style={{
+                                  borderColor: dietaryPreferences.includes("vegan") ? accentColor : undefined,
+                                  backgroundColor: dietaryPreferences.includes("vegan") ? accentColor : undefined,
+                                }}
+                              />
+                              <Label htmlFor="vegan" className="text-base font-medium cursor-pointer">
+                                비건
+                              </Label>
+                            </div>
+                            <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50">
+                              <Checkbox
+                                id="halal"
+                                className="h-5 w-5"
+                                checked={dietaryPreferences.includes("halal")}
+                                onCheckedChange={() => handleDietaryPreferenceChange("halal")}
+                                style={{
+                                  borderColor: dietaryPreferences.includes("halal") ? accentColor : undefined,
+                                  backgroundColor: dietaryPreferences.includes("halal") ? accentColor : undefined,
+                                }}
+                              />
+                              <Label htmlFor="halal" className="text-base font-medium cursor-pointer">
+                                할랄
+                              </Label>
+                            </div>
+                            <div className="flex items-center space-x-3 p-3 rounded-xl hover:bg-gray-50">
+                              <Checkbox
+                                id="diet"
+                                className="h-5 w-5"
+                                checked={dietaryPreferences.includes("diet")}
+                                onCheckedChange={() => handleDietaryPreferenceChange("diet")}
+                                style={{
+                                  borderColor: dietaryPreferences.includes("diet") ? accentColor : undefined,
+                                  backgroundColor: dietaryPreferences.includes("diet") ? accentColor : undefined,
+                                }}
+                              />
+                              <Label htmlFor="diet" className="text-base font-medium cursor-pointer">
+                                다이어트 중
+                              </Label>
+                            </div>
+                          </div>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+
+                    {/* 알레르기 */}
+                    <Collapsible
+                      open={isAllergiesOpen}
+                      onOpenChange={setIsAllergiesOpen}
+                      className="border-2 border-amber-200 rounded-2xl overflow-hidden bg-amber-50 shadow-md"
+                    >
+                      <CollapsibleTrigger
+                        className="flex w-full items-center justify-between p-6 font-semibold hover:bg-amber-100 transition-colors"
+                        style={{ color: accentColor }}
+                      >
+                        <span className="flex items-center gap-3 text-lg">
+                          <AlertTriangle className="h-6 w-6 text-amber-600" />
+                          ⚠️ 알레르기 정보
+                        </span>
+                        {isAllergiesOpen ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="border-t-2 border-amber-200">
+                        <div className="p-6">
+                          <p className="text-sm text-amber-700 mb-4 font-medium">⚠️ 알레르기가 있는 음식은 추천에서 완전히 제외됩니다</p>
+                          <div className="grid grid-cols-2 gap-4">
+                            {allergyOptions.map((option) => (
+                              <div key={option.value} className="flex items-center space-x-3 p-3 rounded-xl hover:bg-amber-100">
+                                <Checkbox
+                                  id={option.value}
+                                  className="h-5 w-5"
+                                  checked={allergies.includes(option.value)}
+                                  onCheckedChange={() => handleAllergyChange(option.value)}
+                                  style={{
+                                    borderColor: allergies.includes(option.value) ? accentColor : undefined,
+                                    backgroundColor: allergies.includes(option.value) ? accentColor : undefined,
+                                  }}
+                                />
+                                <Label htmlFor={option.value} className="text-base font-medium cursor-pointer">
+                                  {option.label}
+                                </Label>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </section>
                 </div>
               </form>
             </CardContent>
           </Card>
         </div>
-      </div>
+      </main>
 
       {/* 플로팅 버튼 */}
       <FloatingButton onClick={handleSubmit} isLoading={isSubmitting} accentColor={accentColor}>
-        음식 추천받기
+        🍽️ 음식 추천받기
       </FloatingButton>
     </div>
   )
